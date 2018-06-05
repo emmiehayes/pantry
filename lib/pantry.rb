@@ -52,6 +52,18 @@ class Pantry
   end
 
 
+  def calculate_batches(recipe)
+    recipe.ingredients.map do |item, qty|
+      @stock.include?(item) && has_all_ingredients?(recipe)
+      return recipe.name, (@stock[item] / qty).abs
+    end.uniq
+  end
 
-
+  def how_many_can_i_make
+    what_can_i_make.each do |recipe_name|
+      @cookbook.find do |recipe|
+        calculate_batches(recipe) if recipe.name == recipe_name
+      end
+    end
+  end
 end

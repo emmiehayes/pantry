@@ -111,8 +111,12 @@ class PantryTest < Minitest::Test
              "Salt"=>20
             }
     assert_equal stock, pantry.stock
+
     refute pantry.has_all_ingredients?(r1)
     assert_equal ["Pickles", "Peanuts"], pantry.what_can_i_make
+
+    assert_equal ["Peanuts", 2], pantry.calculate_batches(r3)
+    assert_equal ["Pickles", 4], pantry.calculate_batches(r2)
     assert_equal ({"Pickles" => 4, "Peanuts" => 2}), pantry.how_many_can_i_make
   end
 end
