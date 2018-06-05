@@ -25,5 +25,18 @@ class Pantry
     @shopping_list.merge!(recipe.ingredients)
   end
 
+  def print_shopping_list
+    @shopping_list.map do |ingredient, quantity|
+      p "* #{ingredient}: #{quantity}\n"
+    end
+  end
+
+  def add_to_cookbook
+
+  end
+
+  def what_can_i_make
+  end
+
 
 end
