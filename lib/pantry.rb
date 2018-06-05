@@ -6,6 +6,7 @@ class Pantry
     @stock = {}
     @shopping_list = {}
     @cookbook = []
+    @batches = []
   end
 
   def stock_check(item)
@@ -51,7 +52,6 @@ class Pantry
     end.compact
   end
 
-
   def calculate_batches(recipe)
     recipe.ingredients.map do |item, qty|
       @stock.include?(item) && has_all_ingredients?(recipe)
@@ -60,9 +60,12 @@ class Pantry
   end
 
   def how_many_can_i_make
-    what_can_i_make.each do |recipe_name|
-      @cookbook.find do |recipe|
-        calculate_batches(recipe) if recipe.name == recipe_name
+    what_can_i_make.map do |recipe_name|
+      @cookbook.map do |recipe|
+        if recipe.name == recipe_name
+          @batches << calculate_batches(recipe)
+        end
+        @batches
       end
     end
   end
