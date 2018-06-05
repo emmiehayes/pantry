@@ -7,13 +7,11 @@ class PantryTest < Minitest::Test
 
   def test_it_has_attributes
     pantry = Pantry.new
-
     assert_equal ({}), pantry.stock
   end
 
   def test_it_can_check_stock
     pantry = Pantry.new
-
     assert pantry.stock.empty?
   end
 
@@ -63,6 +61,7 @@ class PantryTest < Minitest::Test
   end
 
    def test_shopping_list_can_be_printed
+     skip
     pantry = Pantry.new
     recipe = Recipe.new('Spaghetti')
     recipe.add_ingredient('Cheese', 20)
@@ -77,6 +76,7 @@ class PantryTest < Minitest::Test
 
   def test_it_can_build_a_recipe
   pantry = Pantry.new
+
   r1 = Recipe.new("Cheese Pizza")
   r1.add_ingredient("Cheese", 20)
   r1.add_ingredient("Flour", 20)
@@ -93,14 +93,17 @@ class PantryTest < Minitest::Test
   pantry.add_to_cookbook(r2)
   pantry.add_to_cookbook(r3)
 
+  assert_equal 3, pantry.cookbook.count
+
   pantry.restock("Cheese", 10)
   pantry.restock("Flour", 20)
   pantry.restock("Brine", 40)
   pantry.restock("Cucumbers", 120)
   pantry.restock("Raw nuts", 20)
   pantry.restock("Salt", 20)
+
   assert_equal ["Pickles", "Peanuts"], pantry.what_can_i_make
-  # assert_equal {"Pickles" => 4, "Peanuts" => 2}, pantry.how_many_can_i_make
+  assert_equal ({"Pickles" => 4, "Peanuts" => 2}), pantry.how_many_can_i_make
   end
 
 
