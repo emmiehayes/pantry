@@ -35,9 +35,23 @@ class Pantry
     @cookbook << recipe
   end
 
-  def what_can_i_make
-    
+  def has_all_ingredients?(recipe)
+    recipe.ingredients.map do |item, qty|
+      if @stock.keys.include?(item) && @stock[item] >= qty
+        true
+      else
+        return false
+      end
+    end
   end
+
+  def what_can_i_make
+    @cookbook.map do |recipe|
+      recipe.name if has_all_ingredients?(recipe)
+    end.compact
+  end
+
+
 
 
 end
